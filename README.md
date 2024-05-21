@@ -1111,3 +1111,206 @@ $ git branch
 thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
 $
 ```
+
+#### Part 3: Advanced Workflows
+
+```bash 
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git stash
+Saved working directory and index state WIP on main: 1f781b3 chore: add readme
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git stash pop
+On branch main
+Your branch and 'origin/main' have diverged,
+and have 2 and 2 different commits each, respectively.
+  (use "git pull" if you want to integrate the remote branch with yours)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (7d2aed8e1f2202d2bc0b34f361fe41390253d621)
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git branch
+  ft/branch
+  ft/improved-branch-name
+* main
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git add readme.txt 
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git commit -m "chore: retrieving stashed changes"
+[main 6d12fd2] chore: retrieving stashed changes
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git checkout -b ft/feature-branch
+Switched to a new branch 'ft/feature-branch'
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (ft/feature-branch)
+$ git add readme.txt 
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (ft/feature-branch)
+$ git commit -m "chore: new feature branch"
+[ft/feature-branch bcaf39a] chore: new feature branch
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (ft/feature-branch)
+$ git checkout main
+Switched to branch 'main'
+Your branch and 'origin/main' have diverged,
+and have 3 and 2 different commits each, respectively.
+  (use "git pull" if you want to integrate the remote branch with yours)
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git merge ft/feature-branch 
+Updating 6d12fd2..bcaf39a
+Fast-forward
+ readme.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git diff
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git diff main..ft/feature-branch
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ diff main..ft/feature-branch
+diff: missing operand after 'main..ft/feature-branch'
+diff: Try 'diff --help' for more information.
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git diff --stat main..ft/feature-branch
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git mergetool
+
+This message is displayed because 'merge.tool' is not configured.
+See 'git mergetool --tool-help' or 'git help config' for more details.
+'git mergetool' will now attempt to use one of the following tools:
+opendiff kdiff3 tkdiff xxdiff meld tortoisemerge gvimdiff diffuse diffmerge ecmerge p4merge araxis bc codecompare smerge emerge vimdiff nvimdiff
+No files need merging
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ touch .gitignore
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git tag v1.0
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git tags
+git: 'tags' is not a git command. See 'git --help'.
+
+The most similar commands are
+        stage
+        tag
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git tag
+v1.0
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git tag new
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git tag
+new
+v1.0
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git tag -d new
+Deleted tag 'new' (was bcaf39a)
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git tag
+v1.0
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git log
+commit bcaf39a480cf3cd239fceeed11ad10bf8fbd7ef4 (HEAD -> main, tag: v1.0, ft/feature-branch)
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 19:53:29 2024 +0200
+Merge branch 'main' of https://github.com/josueahadi/git-advanced
+
+    chore: new feature branch
+
+commit 6d12fd2fded327874c1fb0a2293e452864de0338
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 19:51:59 2024 +0200
+
+    chore: retrieving stashed changes
+
+commit 1f781b3e7a239be33791f33df2c7110fd8e38edb
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 18:22:21 2024 +0200
+
+    chore: add readme
+
+commit 25954703f033cbc53ef974264366914285c489b4
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 16:44:38 2024 +0200
+
+    chore: implemented core functionality for new feature
+
+commit 31c43a372d63c688d76daaa88fc6d34147103acf
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 16:46:46 2024 +0200
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git pull
+Merge made by the 'ort' strategy.
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 5 commits.
+  (use "git push" to publish your local commits)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git add .
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 5 commits.
+  (use "git push" to publish your local commits)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   .gitignore
+
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git commit -m "complete exercise"
+[main 50dcbd7] complete exercise
+ 1 file changed, 1 insertion(+)
+ create mode 100644 .gitignore
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git push
+Enumerating objects: 18, done.
+Counting objects: 100% (17/17), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (14/14), 1.36 KiB | 174.00 KiB/s, done.
+Total 14 (delta 5), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (5/5), completed with 1 local object.
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/josueahadi/git-advanced-exercise.git
+To https://github.com/josueahadi/git-advanced.git
+   e7055a5..50dcbd7  main -> main
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+```
