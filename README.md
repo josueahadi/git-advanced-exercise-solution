@@ -842,3 +842,272 @@ This comprehensive exercise combines essential Git skills, from manipulating his
     0e1110c HEAD@{57}: commit (initial): chore: Create initial file
     (END)
     ```
+
+
+#### Part 2: Refining Git History (10 Challenges)
+
+```bash
+$ git checkout -b ft/new-feature
+Switched to a new branch 'ft/new-feature'
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (ft/new-feature)
+$ touch feature.txt
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (ft/new-feature)
+$ git commit -m "chore: implemented core functionality for new feature"
+On branch ft/new-feature
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        feature.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (ft/new-feature)
+$ git add feature.txt && git commit -m "chore: implemented core functionality for new feature"
+[ft/new-feature 93ef60c] chore: implemented core functionality for new feature
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 feature.txt
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (ft/new-feature)
+$ git checkout main 
+Switched to branch 'main'
+Your branch is based on 'origin/main', but the upstream is gone.
+  (use "git branch --unset-upstream" to fixup)
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ touch readme.txt
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git add readme.txt && git commit -m "chore: update project readme"
+[main 31c43a3] chore: update project readme
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 readme.txt
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git status
+On branch main
+Your branch is based on 'origin/main', but the upstream is gone.
+  (use "git branch --unset-upstream" to fixup)
+
+nothing to commit, working tree clean
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git branch --set-upstream
+  ft/branch
+  ft/new-feature
+* main
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git push origin main
+Merge branch 'ft/new-feature'
+Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (9/9), done.
+Writing objects: 100% (10/10), 936 bytes | 468.00 KiB/s, done.
+Total 10 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (2/2), done.
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/josueahadi/git-advanced-exercise.git
+To https://github.com/josueahadi/git-advanced.git
+ * [new branch]      main -> main
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git diff main..ft/new-feature
+diff --git a/readme.txt b/feature.txt
+similarity index 100%
+rename from readme.txt
+rename to feature.txt
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git diff main..ft/branch
+diff --git a/readme.txt b/readme.txt
+deleted file mode 100644
+index e69de29..0000000
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git merge ft/new-feature
+Merge made by the 'ort' strategy.
+ feature.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 feature.txt
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git push origin main
+Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 503 bytes | 251.00 KiB/s, done.
+Total 4 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/josueahadi/git-advanced-exercise.git
+To https://github.com/josueahadi/git-advanced.git
+   31c43a3..e7055a5  main -> main
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git branch
+  ft/branch
+  ft/new-feature
+* main
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git branch -d ft/new-feature 
+Deleted branch ft/new-feature (was 93ef60c).
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git log 
+commit e7055a5290186b3b9e8d9d81acb945e0b96602f3 (HEAD -> main, origin/main)
+Merge: 31c43a3 93ef60c
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 16:51:42 2024 +0200
+
+    Merge branch 'ft/new-feature'
+    chore: integrate feature into main
+
+commit 31c43a372d63c688d76daaa88fc6d34147103acf
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 16:46:46 2024 +0200
+
+    chore: update project readme
+
+commit 93ef60cda84929802ec8f489ebd9ee3022c67ee7
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 16:44:38 2024 +0200
+
+    chore: implemented core functionality for new feature
+
+commit a04e7b43ff4a31049f66d718f3e66057fea9e7f4
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 12:55:51 2024 +0200
+
+    chore: cherry-pick commands
+
+commit 8bf34abf46d9310e54fe23cf83852d0fc73edbf1
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git checkout -b ft/new-branch-from-commit a04e7b43ff4a31049f66d718f3e66057fea9e7f4
+Switched to a new branch 'ft/new-branch-from-commit'
+
+commit a04e7b43ff4a31049f66d718f3e66057fea9e7f4 (HEAD -> ft/new-branch-from-commit)
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 12:55:51 2024 +0200
+
+    chore: cherry-pick commands
+
+commit 8bf34abf46d9310e54fe23cf83852d0fc73edbf1
+Date:   Mon May 20 15:12:00 2024 +0200
+
+    chore: Create initial file
+
+    chore: Create second file
+
+commit b5c1ed811e3d6793a4e607ccf6cf299218aeb05d
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 11:37:55 2024 +0200
+
+    Create third and fourth files
+
+    Create Third File
+
+    Create Fourth File
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (ft/new-branch-from-commit)
+$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git merge ft/new-branch-from-commit
+Already up to date.
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git checkout ft/new-branch-from-commit 
+error: Your local changes to the following files would be overwritten by checkout:
+        readme.txt
+Please commit your changes or stash them before you switch branches.
+Aborting
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git commit -m "chore: add readme"
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git add readme.txt 
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git commit -m "chore: add readme"
+[main 145da68] chore: add readme
+ 1 file changed, 1 insertion(+)
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git rebase ft/new-branch-from-commit 
+Successfully rebased and updated refs/heads/main.
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git log
+commit 1f781b3e7a239be33791f33df2c7110fd8e38edb (HEAD -> main)
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 18:22:21 2024 +0200
+
+    chore: add readme
+
+commit 25954703f033cbc53ef974264366914285c489b4
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 16:44:38 2024 +0200
+
+    chore: implemented core functionality for new feature
+
+commit 31c43a372d63c688d76daaa88fc6d34147103acf
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 16:46:46 2024 +0200
+
+    chore: update project readme
+
+commit a04e7b43ff4a31049f66d718f3e66057fea9e7f4 (ft/new-branch-from-commit)
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Tue May 21 12:55:51 2024 +0200
+
+    chore: cherry-pick commands
+
+commit 8bf34abf46d9310e54fe23cf83852d0fc73edbf1
+Author: josueahadi <ahadihjosue@gmail.com>
+Date:   Mon May 20 15:12:00 2024 +0200
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git branch -m ft/new-branch-from-commit ft/improved-branch-name
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$ git branch
+  ft/branch
+  ft/improved-branch-name
+* main
+
+thegym@DESKTOP-TOARFF1 MINGW64 ~/Desktop/git-advanced (main)
+$
+```
